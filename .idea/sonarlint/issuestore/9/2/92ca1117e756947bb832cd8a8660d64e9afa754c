@@ -1,0 +1,15 @@
+
+psquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ò‰Ù¶øÿÿÿÿ8ÄÂ¹Ëˆ,
+Xsquid:UselessImportCheck"/Remove this unused import 'java.nio.file.Path'.(×²êÂ8ïÒÍËˆ,
+Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ÄÂ¹Ëˆ,
+Y
+squid:S106"9Replace this use of System.out or System.err by a logger.(™ó£²ÿÿÿÿÿ8ÄÂ¹Ëˆ,
+Gsquid:S1168"+Return an empty collection instead of null.(¥¹ï8ÄÂ¹Ëˆ,
+psquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àı†¼úÿÿÿÿ8ˆé¸Ëˆ,
+Y
+squid:S106"9Replace this use of System.out or System.err by a logger.(ıãÃ¥ÿÿÿÿÿ8ÄÂ¹Ëˆ,
+Y
+squid:S106"9Replace this use of System.out or System.err by a logger.(§¬£¹ÿÿÿÿÿ8ÄÂ¹Ëˆ,
+~squid:S4087"bRemove this "close" call; closing the resource is handled automatically by the try-with-resources.(°ĞãÇ8¦³»Ëˆ,
+T
+squid:S106"9Replace this use of System.out or System.err by a logger.(¤Á¹ä8˜ ÙËˆ,
