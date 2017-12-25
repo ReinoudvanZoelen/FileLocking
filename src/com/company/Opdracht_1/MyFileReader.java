@@ -1,8 +1,7 @@
-package com.company;
+package com.company.Opdracht_1;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 

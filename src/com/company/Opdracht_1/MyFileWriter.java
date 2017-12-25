@@ -1,4 +1,4 @@
-package com.company;
+package com.company.Opdracht_1;
 
 import java.io.FileWriter;
 import java.util.Date;
