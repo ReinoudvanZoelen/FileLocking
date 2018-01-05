@@ -16,15 +16,13 @@ public class MyMBB {
 
             MappedByteBuffer out = fc.map(FileChannel.MapMode.READ_WRITE, 0, LENGTH);
 
-
             for (int i = 0; i < LENGTH; i++) {
-                out.put((byte) i);
+                out.put(i, (byte) 'x');
             }
 
+            new Write(fc, out).run();
             new Read(fc, out).run();
 
-            new LockAndModify(out, 0, 0 + LENGTH / 3);
-            new LockAndModify(out, LENGTH / 2, LENGTH / 2 + LENGTH / 4);
         } catch (Exception ex) {
             System.out.println(ex);
         }
