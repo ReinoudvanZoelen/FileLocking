@@ -28,14 +28,14 @@ public class MyWatchservice {
                     WatchEvent.Kind kind = ev.kind();
                     if (kind == ENTRY_CREATE) {
                         System.out.println(child + " created");
-                        new MyFileReader(dir.toAbsolutePath().toString() + filename.toString()).run();
+                        new MyFileReader(child.toString()).run();
                     }
                     else if (kind == ENTRY_DELETE) {
                         System.out.println(child + " deleted");
                     }
                     else if (kind == ENTRY_MODIFY) {
                         System.out.println(child + " modified");
-                        new MyFileReader(dir.toAbsolutePath().toString() + '\\' + filename.toString()).run();
+                        new MyFileReader(child.toString()).run();
                     }
                 }
                 key.reset();
