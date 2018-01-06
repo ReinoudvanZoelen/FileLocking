@@ -38,8 +38,8 @@ public class Write extends Thread {
         boolean finished = false;
 
         // clean up the first 16 bytes, could be left over from last run
-        writeIndex(9);
-        writeClustersize(1024);
+        writeIndex(8);
+        writeClustersize(0);
 
         System.out.println("Starting to write...");
 
@@ -51,8 +51,8 @@ public class Write extends Thread {
             int startingIndex = LockTools.readIndex();
 
             writeIndex(startingIndex + lastWrittenName.length());
-            //writeClustersize(name.length());
-            //writeContent(name, startingIndex);
+            writeClustersize(name.length());
+            writeContent(name, startingIndex);
 
             this.lastWrittenName = name;
 

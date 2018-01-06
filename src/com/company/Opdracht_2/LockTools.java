@@ -1,8 +1,10 @@
 package com.company.Opdracht_2;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileLock;
+import java.util.ArrayList;
 
 import static com.company.Opdracht_2.Program.mbb;
 import static com.company.Opdracht_2.Program.fc;
@@ -43,20 +45,22 @@ public class LockTools {
         mbb.position(position);
         mbb.limit(position + length);
 
-        ByteBuffer buff;
-        buff = mbb.slice();
+        ByteBuffer buff = mbb.slice();
 
-//        ArrayList<Byte> items = new ArrayList<>();
-//
-//        while (buff.position() < buff.limit()) {
-//            items.add(buff.get());
-//        }
+        byte[] buffArrayOutput = new byte[length];
 
-        for (Byte b : buff.array()) {
-            System.out.println("Returning value " + b);
+        int counter = 0;
+        while (buff.hasRemaining()) {
+            byte b = buff.get();
+            buffArrayOutput[counter] = b;
+            counter++;
+
+            System.out.print((char) b);
         }
 
-        return buff.array();
+        System.out.println("");
+
+        return buffArrayOutput;
     }
 
     public static byte[] splitIntToByteArray(int integer) {

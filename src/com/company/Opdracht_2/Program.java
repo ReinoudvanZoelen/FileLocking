@@ -29,7 +29,7 @@ public class Program {
             new Read().run();
 
         } catch (Exception ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
         }
     }
 
