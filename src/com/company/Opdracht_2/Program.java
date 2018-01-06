@@ -4,24 +4,29 @@ import java.io.*;
 import java.nio.*;
 import java.nio.channels.*;
 
-public class MyMBB {
-    static final int LENGTH = 0x8FFFFFF; // 128 Mb
-    static RandomAccessFile raf;
-    static FileChannel fc;
+public class Program {
+    static final int LENGTH = 128;//0x8FFFFFF; // 128 Mb
+    public static RandomAccessFile raf;
+    public static FileChannel fc;
+    public static MappedByteBuffer mbb;
 
     public static void main(String[] args) {
         try {
+            System.out.println("Starting applicaton...");
             raf = new RandomAccessFile("test.dat", "rw");
             fc = raf.getChannel();
 
-            MappedByteBuffer out = fc.map(FileChannel.MapMode.READ_WRITE, 0, LENGTH);
+            mbb = fc.map(FileChannel.MapMode.READ_WRITE, 0, LENGTH);
 
             for (int i = 0; i < LENGTH; i++) {
-                out.put(i, (byte) 'x');
+                mbb.put(i, (byte) 'x');
             }
 
-            new Write(fc, out).run();
-            new Read(fc, out).run();
+            new Write().run();
+
+            Thread.sleep(1000);
+
+            new Read().run();
 
         } catch (Exception ex) {
             System.out.println(ex);

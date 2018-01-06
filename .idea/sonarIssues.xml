@@ -18,6 +18,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/company/Opdracht_2/LockTools.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/company/Opdracht_2/MyBufferedManager.java">
           <value>
             <set />
@@ -28,7 +33,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/company/Opdracht_2/Program.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/company/Opdracht_2/Read.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/company/Opdracht_2/SharedLockingTools.java">
           <value>
             <set />
           </value>
