@@ -5,7 +5,7 @@ import java.nio.*;
 import java.nio.channels.*;
 
 public class Program {
-    static final int LENGTH = 128;//0x8FFFFFF; // 128 Mb
+    static final int LENGTH = Integer.MAX_VALUE / 2; // 128 Mb
     public static RandomAccessFile raf;
     public static FileChannel fc;
     public static MappedByteBuffer mbb;
@@ -18,14 +18,11 @@ public class Program {
 
             mbb = fc.map(FileChannel.MapMode.READ_WRITE, 0, LENGTH);
 
-            for (int i = 0; i < LENGTH; i++) {
-                mbb.put(i, (byte) 'x');
-            }
+//            for (int i = 8; i < LENGTH; i++) {
+//                mbb.put(i, (byte) 'x');
+//            }
 
-            new Write().run();
-
-            Thread.sleep(1000);
-
+            //new Write().run();
             new Read().run();
 
         } catch (Exception ex) {

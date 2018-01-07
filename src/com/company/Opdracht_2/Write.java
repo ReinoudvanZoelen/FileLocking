@@ -46,9 +46,9 @@ public class Write extends Thread {
         while (!finished) {
             String name = getRandomName();
 
-            System.out.println("Name to be written: " + name);
-
             int startingIndex = LockTools.readIndex();
+
+            System.out.println("Name to be written: " + name + " at index " + startingIndex);
 
             writeIndex(startingIndex + lastWrittenName.length());
             writeClustersize(name.length());
@@ -56,22 +56,22 @@ public class Write extends Thread {
 
             this.lastWrittenName = name;
 
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             if (true) {
-                finished = true;
+                //finished = true;
             }
         }
     }
 
-
-    private void writeIndex(int index) {
+    public void writeIndex(int index) {
         FileLock fl = LockTools.AttemptGetLock(0, 4);
 
         byte[] splitInteger = LockTools.splitIntToByteArray(index);
-
-        for (Byte b : splitInteger) {
-            System.out.print(b + " ");
-        }
-        System.out.println();
 
         LockTools.Write(0, splitInteger);
 
@@ -80,12 +80,9 @@ public class Write extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("The lock has been released.");
-        System.out.println("");
     }
 
-    private void writeClustersize(int clustersize) {
+    public void writeClustersize(int clustersize) {
         FileLock fl = LockTools.AttemptGetLock(4, 4);
 
         byte[] splitInteger = LockTools.splitIntToByteArray(clustersize);
@@ -97,9 +94,6 @@ public class Write extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("The lock has been released.");
-        System.out.println("");
     }
 
 
@@ -113,9 +107,6 @@ public class Write extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("The lock has been released.");
-        System.out.println("");
     }
 
     private String getRandomName() {

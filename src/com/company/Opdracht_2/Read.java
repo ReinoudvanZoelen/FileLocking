@@ -9,32 +9,21 @@ public class Read extends Thread {
     public void run() {
         boolean finished = false;
 
-        int lastKnownIndex = 0;
-
         System.out.println("Starting to read...");
 
         while (!finished) {
             int index = LockTools.readIndex();
             int clustersize = LockTools.readClustersize();
 
-            System.out.println("Index: " + index);
-            System.out.println("Clustersize: " + clustersize);
+            byte[] readFromBytes = readBytes(index, clustersize);
 
-            if (index > lastKnownIndex) {
+            try {
+                String entry = new String(readFromBytes, "UTF-8");
 
-                byte[] readFromBytes = readBytes(index, clustersize);
-
-                try {
-                    String entry = new String(readFromBytes, "UTF-8");
-
-                    System.out.println("Reader has read the entry: " + entry);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-
+                System.out.println("Read: " + entry);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
-
-            lastKnownIndex = index;
 
             if (true) {
                 finished = true;
@@ -52,7 +41,6 @@ public class Read extends Thread {
 
         try {
             fl.release();
-            System.out.println("The lock has been released.");
         } catch (IOException e) {
             e.printStackTrace();
         }
