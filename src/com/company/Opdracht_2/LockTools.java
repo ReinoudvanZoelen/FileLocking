@@ -1,12 +1,8 @@
 package com.company.Opdracht_2;
 
-import jdk.nashorn.internal.objects.NativeJSON;
-
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileLock;
-import java.util.ArrayList;
 
 import static com.company.Opdracht_2.Program.mbb;
 import static com.company.Opdracht_2.Program.fc;
@@ -44,10 +40,10 @@ public class LockTools {
     }
 
     public static byte[] ReadMultipleFromFileChannel(int position, int length) {
-        if ((position + length) > Program.LENGTH) {
+//        if ((position + length) > Program.LENGTH) {
 //            System.err.println("Data was attempted to be written outside of the admitted bounds");
 //            return null;
-        }
+//        }
 
         mbb.position(position);
         mbb.limit(position + length);
@@ -72,7 +68,10 @@ public class LockTools {
         return bytebuffer.array();
     }
 
-    public static FileLock AttemptGetLock(int position, int size) {
+    public static synchronized FileLock AttemptGetLock(int position, int size) {
+        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+        System.out.println(stackTraceElements[2].toString() + " is trying to get lock at position " + position + " and size " + size);
+
         FileLock fl = null;
         while (fl == null) {
             try {
@@ -89,8 +88,8 @@ public class LockTools {
 
     public static boolean Write(int position, byte[] content) {
         if ((content.length + position) > Program.LENGTH) {
-//            System.err.print("Data was attempted to be written outside of the admitted bounds");
-//            return false;
+            System.err.print("Data was attempted to be written outside of the admitted bounds");
+            return false;
         }
 
         try {

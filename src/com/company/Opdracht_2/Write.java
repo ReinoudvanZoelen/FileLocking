@@ -1,12 +1,11 @@
 package com.company.Opdracht_2;
 
 import java.io.IOException;
-import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Write extends Thread {
+public class Write implements Runnable {
     private ArrayList<String> names = new ArrayList<>();
     private String lastWrittenName = "";
 
@@ -41,14 +40,14 @@ public class Write extends Thread {
         writeIndex(8);
         writeClustersize(0);
 
-        System.out.println("Starting to write...");
+        System.out.println("W: Starting to write...");
 
         while (!finished) {
             String name = getRandomName();
 
             int startingIndex = LockTools.readIndex();
 
-            System.out.println("Name to be written: " + name + " at index " + startingIndex);
+            System.out.println("W: Name to be written: " + name + " (size " + name.length() + ") at index " + startingIndex);
 
             writeIndex(startingIndex + lastWrittenName.length());
             writeClustersize(name.length());
@@ -68,7 +67,14 @@ public class Write extends Thread {
         }
     }
 
-    public void writeIndex(int index) {
+    public Write ResetIndexAndCluster() {
+        System.out.println("W: Resetting index (8) and clustersize (0)");
+        writeIndex(8);
+        writeClustersize(0);
+        return this;
+    }
+
+    private void writeIndex(int index) {
         FileLock fl = LockTools.AttemptGetLock(0, 4);
 
         byte[] splitInteger = LockTools.splitIntToByteArray(index);
@@ -82,7 +88,7 @@ public class Write extends Thread {
         }
     }
 
-    public void writeClustersize(int clustersize) {
+    private void writeClustersize(int clustersize) {
         FileLock fl = LockTools.AttemptGetLock(4, 4);
 
         byte[] splitInteger = LockTools.splitIntToByteArray(clustersize);
