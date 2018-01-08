@@ -11,24 +11,33 @@ public class Read implements Runnable {
 
         System.out.println("R: Starting to read...");
 
+        int lastReadIndex = 0;
+
         while (!finished) {
             int index = LockTools.readIndex();
             int clustersize = LockTools.readClustersize();
 
             System.out.println("R: Index " + index + ", Clustersize " + clustersize);
 
-            byte[] readFromBytes = readBytes(index, clustersize);
+            if (index > lastReadIndex) {
+                System.out.println("R: Found a new index: " + index);
+                byte[] readFromBytes = readBytes(index, clustersize);
 
-            try {
-                String entry = new String(readFromBytes, "UTF-8");
+                try {
+                    String entry = new String(readFromBytes, "UTF-8");
 
-                System.out.println("R: " + entry);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                    System.out.println("R: " + entry);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                lastReadIndex = index;
+            } else {
+                System.out.println("R: No new index found.");
             }
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

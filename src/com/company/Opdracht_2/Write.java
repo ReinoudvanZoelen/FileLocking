@@ -36,22 +36,19 @@ public class Write implements Runnable {
     public void run() {
         boolean finished = false;
 
-        // clean up the first 16 bytes, could be left over from last run
-        writeIndex(8);
-        writeClustersize(0);
-
         System.out.println("W: Starting to write...");
 
         while (!finished) {
             String name = getRandomName();
 
+            System.out.println("W: Name to be written: " + name + " (size " + name.length() + ")");
+
             int startingIndex = LockTools.readIndex();
 
-            System.out.println("W: Name to be written: " + name + " (size " + name.length() + ") at index " + startingIndex);
+            writeContent(name, startingIndex);
 
             writeIndex(startingIndex + lastWrittenName.length());
             writeClustersize(name.length());
-            writeContent(name, startingIndex);
 
             this.lastWrittenName = name;
 

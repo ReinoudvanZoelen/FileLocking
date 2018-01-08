@@ -5,7 +5,7 @@ import java.nio.*;
 import java.nio.channels.*;
 
 public class Program {
-    static final int LENGTH = Integer.MAX_VALUE / 32; // 128 Mb
+    static final int LENGTH = Integer.MAX_VALUE / 128; // 128 Mb
     public static RandomAccessFile raf;
     public static FileChannel fc;
     public static MappedByteBuffer mbb;
